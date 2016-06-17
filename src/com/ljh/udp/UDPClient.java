@@ -4,14 +4,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
-
+/**
+ * 给server发送一个，接收一个就关闭。
+ * @author ljheee
+ *
+ */
 public class UDPClient {
+	
 	public static void main(String[] args) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		DatagramSocket clientSocket = null;
 		try {
 			//发送数据
-			 clientSocket =new DatagramSocket();
+			clientSocket =new DatagramSocket();
 			InetAddress address = InetAddress.getByName("localhost");
 			byte[] receive = new byte[1024];
 			byte[] sendData = new byte[1024];
@@ -29,40 +34,14 @@ public class UDPClient {
 			String data1 = new String(dp1.getData());
 			System.out.println("Client's receive:"+data1);
 			
-			
-			
 		} catch (SocketException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{clientSocket.close();}
 		
-		
-	
-	
-	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
