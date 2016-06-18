@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 /**
- * 给server发送一个，接收一个就关闭。
+ * 给server发送一个，接收一个（数据包）就关闭。
  * @author ljheee
  *
  */
