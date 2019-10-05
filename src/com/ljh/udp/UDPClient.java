@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 /**
- * 给server发送一个，接收一个（数据包）就关闭。
+ * 锟斤拷server锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟捷帮拷锟斤拷锟酵关闭★拷
  * @author ljheee
  * https://github.com/ljheee/ChatUDP
  *
@@ -16,24 +16,30 @@ public class UDPClient {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		DatagramSocket clientSocket = null;
 		try {
-			//发送数据
-			clientSocket =new DatagramSocket();//构造“邮局”
+			//invia dati
+			clientSocket =new DatagramSocket();
 			InetAddress address = InetAddress.getByName("localhost");
 			byte[] receive = new byte[1024];
 			byte[] sendData = new byte[1024];
 			
+			System.out.println("UDP client online");
+			
+			
+			while(true) {
+				
 			String data = br.readLine();
 			sendData =data.getBytes();
-			//构建一个数据包[一个封装好的信封]，发送到address的指定端口
+			//crea un pacchetto e lo invia alla porta specificata
 			DatagramPacket dp = new DatagramPacket(sendData, sendData.length,address,8899);
 			clientSocket.send(dp);
 			
-			//接收数据，提前准备一个空信封DatagramPacket
+			// riceve i dati
 			DatagramPacket dp1 = new DatagramPacket(receive, receive.length);
 			
-			clientSocket.receive(dp1);//接收数据，封装放到dp1数据包
+			clientSocket.receive(dp1);//prende i dati
 			String data1 = new String(dp1.getData());
-			System.out.println("Client's receive:"+data1);
+			System.out.println("Client: "+data1);
+			}
 			
 		} catch (SocketException e) {
 			e.printStackTrace();
