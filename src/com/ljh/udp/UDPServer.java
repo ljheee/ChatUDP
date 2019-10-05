@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 /**
- * Ñ­»· ¼àÌı¶Ë¿Ú
- * ½ÓÊÕµ½Ò»¸ö£¬´òÓ¡Êä³ö½ÓÊÕµ½µÄÄÚÈİ£¬²¢·µ»Ø·¢ËÍÒ»¸öÏûÏ¢
+ * Ñ­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½
+ * ï¿½ï¿½ï¿½Õµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï¢
  * @author ljheee
  * https://github.com/ljheee/ChatUDP
  *
@@ -16,30 +16,32 @@ public class UDPServer {
 	public static void main(String[] args) {
 		DatagramSocket serSocket =null;
 		try {
-			serSocket = new DatagramSocket(8899);//¹¹Ôì¡°ÓÊ¾Ö¡±
+			serSocket = new DatagramSocket(8899);//costruisce il socket
 			
 			byte[] receive = new byte[1024];
 			byte[] sendData = new byte[1024];
 			
+			System.out.println("UDP server online");
+			
 			while(true){
-				//¹¹½¨Ò»¸öÊı¾İ°ü£»ÀïÃæÃ»ÓĞÊı¾İ--Ïàµ±ÓÚ¡°¿ÕĞÅ·â¡±£¨×¼±¸½ÓÊÕÊı¾İ£©
+				//costriusce un pacchetto di dati vuoto, senza dati, pronto per riceverne
 				DatagramPacket dp = new DatagramPacket(receive, receive.length);
 				
-				serSocket.receive(dp);//½ÓÊÕÊı¾İ£¬·Åµ½dpÊı¾İ°ü£¬¼´°ÑÊÕµ½µÄÊı¾İ·â×°µ½¡°¿ÕĞÅ·â¡±Àï
+				serSocket.receive(dp);//riceve i dati e li incapsula nella busta vuota
 				String data = new String(dp.getData());
-				System.out.println("Server's receive:"+data);
+				System.out.println("Server: "+data);
 				
-				//·¢ËÍÊı¾İ
+				//invia dati
 				InetAddress address = dp.getAddress();
 				int port = dp.getPort();
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String data1 = br.readLine();//´Ó¿ØÖÆÌ¨--¶ÁÈ¡Ò»ĞĞ´ı·¢Êı¾İ
+				String data1 = br.readLine();//legge i dati in console
 				sendData = data1.getBytes();
 				
-				//¹¹ÔìÒ»·âĞÅDatagramPacket£¬ĞÅ·âÀïÃæ·â×°ÁË  ´ı·¢Êı¾İ¡¢Êı¾İ³¤¡¢ÒÔ¼°½ÓÊÕÕßĞÅÏ¢
+				//Costruire una lettera DatagramPacket, che incapsula i dati da inviare, la lunghezza dei dati e le informazioni sul destinatario
 				DatagramPacket dp1 = new DatagramPacket(sendData, sendData.length,address,port);
-				serSocket.send(dp1);//·¢ËÍÊı¾İ±¨ÎÄdp1,µ½Ä¿µÄµØ
+				serSocket.send(dp1);//Invia il messaggio di dati dp1 alla destinazione
 				dp = null;
 			}
 			
